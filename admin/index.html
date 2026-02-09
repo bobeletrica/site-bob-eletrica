@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
 <head>
     <meta charset="utf-8" />
@@ -120,7 +121,7 @@
         const USUARIO_CORRETO = "bob"; 
         const SENHA_CORRETA = "eletrica2024";
 
-        function validarAcesso() {
+       function validarAcesso() {
             const u = document.getElementById('userField').value;
             const p = document.getElementById('passField').value;
 
@@ -128,6 +129,11 @@
                 document.getElementById('login-interface').style.display = 'none';
                 document.getElementById('cms-wrapper').style.display = 'block';
                 injetarTemaCMS();
+                
+                // Força o Netlify Identity a abrir se não estiver logado
+                if (!localStorage.getItem('netlifySiteURL')) {
+                    localStorage.setItem('netlifySiteURL', 'https://site-bobeletrica.netlify.app');
+                }
             } else {
                 alert("ACESSO NEGADO: Credenciais Inválidas.");
             }
