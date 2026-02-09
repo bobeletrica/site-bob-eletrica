@@ -37,7 +37,7 @@
             backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
-        header img { height: 120px; width: auto; display: block; }
+        header img { height: 70px; width: auto; display: block; }
         .logo { font-weight: 900; font-size: 1.4rem; color: var(--amarelo); letter-spacing: -1px; }
 
         .hero { 
@@ -273,6 +273,7 @@
         <h4 style="color: rgb(255, 230, 0);">Contato</h4>
         <p style="color: #666;">WhatsApp: (21) 97481-9165</p>
     </div>
+    
 </footer>
 
     <a href="https://wa.me/5521974819165" class="whatsapp-btn">
@@ -347,6 +348,50 @@ carregarServicos();
             // O formulário ainda será enviado para o Netlify para registro oficial!
         });
     </script>
+<<a href="/admin/" class="admin-float-btn" title="Acessar Painel Administrativo">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+    </svg>
+</a>
+
+<style>
+    .admin-float-btn {
+        position: fixed;
+        bottom: 40px; /* Mesma altura do zap */
+        left: 40px;   /* Canto esquerdo */
+        width: 60px;
+        height: 60px;
+        background: #161618; /* Fundo preto elegante */
+        color: #edcc29;      /* Bonequinho amarelo */
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        z-index: 10000;
+        border: 2px solid #edcc29;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        text-decoration: none;
+    }
+
+    .admin-float-btn:hover {
+        transform: scale(1.1);
+        background: #edcc29; /* Inverte a cor no hover */
+        color: #000;
+        box-shadow: 0 0 20px rgba(237, 204, 41, 0.4);
+    }
+
+    /* Esconde o botão em telas muito pequenas se você achar que atrapalha */
+    @media (max-width: 480px) {
+        .admin-float-btn {
+            width: 50px;
+            height: 50px;
+            left: 20px;
+            bottom: 20px;
+        }
+    }
+</style>
 
 </body>
 </html>
