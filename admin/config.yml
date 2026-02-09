@@ -1,0 +1,20 @@
+backend:
+  name: git-gateway
+  repo: bobeletrica/site-bob-eletrica
+  branch: main
+
+publish_mode: editorial_workflow
+media_folder: "assets/img"
+public_folder: "/assets/img"
+
+collections:
+  - name: "servicos"
+    label: "Nossos Serviços"
+    folder: "content/servicos"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Título do Serviço", name: "title", widget: "string" }
+      - { label: "Data da Execução", name: "date", widget: "datetime" }
+      - { label: "Foto do Trabalho", name: "image", widget: "image" }
+      - { label: "Descrição Curta", name: "body", widget: "markdown" }
