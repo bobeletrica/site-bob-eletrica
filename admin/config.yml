@@ -1,11 +1,9 @@
 backend:
   name: git-gateway
-  repo: bobeletrica/site-bob-eletrica
-  branch: main
+  branch: main # Verifique se o nome da sua branch no GitHub é 'main' ou 'master'
 
-publish_mode: editorial_workflow
-media_folder: "assets/img"
-public_folder: "/assets/img"
+media_folder: "images" # Onde as fotos do celular serão salvas
+public_folder: "/images"
 
 collections:
   - name: "servicos"
@@ -15,6 +13,9 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Título do Serviço", name: "title", widget: "string" }
-      - { label: "Data da Execução", name: "date", widget: "datetime" }
+      - { label: "Data da Postagem", name: "date", widget: "datetime" }
       - { label: "Foto do Trabalho", name: "image", widget: "image" }
-      - { label: "Descrição Curta", name: "body", widget: "markdown" }
+      - { label: "Descrição Curta", name: "body", widget: "markdown", required: false }
+
+# Configuração visual do painel para evitar erros de estilo
+display_url: https://bobeletrica.netlify.app
