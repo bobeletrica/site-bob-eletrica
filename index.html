@@ -293,32 +293,44 @@
             document.getElementById("myBar").style.width = (winScroll / height) * 100 + "%";
         };
 
-        // BUSCA AUTOMÁTICA DE SERVIÇOS (GITHUB)
-        async function carregarServicos() {
-            const container = document.getElementById('lista-servicos');
-            try {
-                const response = await fetch('https://api.github.com/repos/bobeletrica/site-bob-eletrica/contents/content/servicos');
-                const arquivos = await response.json();
-                if(arquivos.length > 0) container.innerHTML = "";
-                for (let file of arquivos) {
-                    if(file.name.endsWith('.md')) {
-                        const res = await fetch(file.download_url);
-                        const text = await res.text();
-                        const title = text.match(/title: (.*)/)?.[1]?.replace(/"/g, "");
-                        const image = text.match(/image: (.*)/)?.[1]?.replace(/"/g, "");
-                        if(title && image) {
-                            container.innerHTML += `
-                                <div class="media-card">
-                                    <img src="${image}" alt="${title}">
-                                    <div class="card-info"><h3>${title}</h3></div>
-                                </div>`;
-                        }
-                    }
-                }
-            } catch (e) { console.log("Sem fotos novas."); }
-        }
-        carregarServicos();
+        // BUSCA AUTOMÁTICA DE SERVIÇOS (FOTOS DO CELULAR)
+async function carregarServicos() {
+    const container = document.getElementById('lista-servicos');
+    try {
+        // Busca a lista de arquivos na pasta de serviços do seu GitHub
+        const response = await fetch('https://api.github.com/repos/bobeletrica/site-bob-eletrica/contents/content/servicos');
+        const arquivos = await response.json();
+        
+        if(arquivos.length > 0) container.innerHTML = ""; // Limpa o texto de "carregando"
 
+        for (let file of arquivos) {
+            if(file.name.endsWith('.md')) {
+                const res = await fetch(file.download_url);
+                const text = await res.text();
+                
+                // Pega o título e a imagem de dentro do arquivo criado pelo CMS
+                const title = text.match(/title: (.*)/)?.[1]?.replace(/"/g, "");
+                const image = text.match(/image: (.*)/)?.[1]?.replace(/"/g, "");
+
+                if(title && image) {
+                    // Aqui está a mágica: usamos a mesma estrutura dos cards fixos
+                    container.innerHTML += `
+                        <div class="media-card">
+                            <img src="${image}" alt="${title}" style="width: 100%; height: 350px; object-fit: cover; display: block;">
+                            <div class="card-info">
+                                <h3>${title}</h3>
+                                <p style="color: #666; font-size: 0.9rem;">Serviço finalizado com sucesso.</p>
+                            </div>
+                        </div>`;
+                }
+            }
+        }
+    } catch (e) { 
+        console.log("Erro ao carregar fotos novas:", e);
+        container.innerHTML = '<p style="text-align: center; color: #444;">Nenhum serviço novo encontrado.</p>';
+    }
+}
+carregarServicos();
         // LÓGICA DE POSTAR OPINIÃO NA HORA
         document.getElementById('form-depoimento').addEventListener('submit', function(e) {
             const nome = document.getElementById('dep-nome').value;
